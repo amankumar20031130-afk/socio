@@ -49,8 +49,8 @@ const NotificationPage = () => {
 
 	return (
 		<>
-			<div className='flex-[4_4_0] border-l border-r border-gray-700 min-h-screen'>
-				<div className='flex justify-between items-center p-4 border-b border-gray-700'>
+			<div className='flex-[4_4_0] border-l border-r border-base-300 min-h-screen'>
+				<div className='flex justify-between items-center p-4 border-b border-base-300'>
 					<p className='font-bold'>Notifications</p>
 					<div className='dropdown '>
 						<div tabIndex={0} role='button' className='m-1'>
@@ -73,10 +73,10 @@ const NotificationPage = () => {
 				)}
 				{notifications?.length === 0 && <div className='text-center p-4 font-bold'>No notifications 🤔</div>}
 				{notifications?.map((notification) => (
-					<div className='border-b border-gray-700' key={notification._id}>
+					<div className='border-b border-base-300' key={notification._id}>
 						<div className='flex gap-2 p-4'>
 							{notification.type === "follow" && <FaUser className='w-7 h-7 text-primary' />}
-							{notification.type === "like" && <FaHeart className='w-7 h-7 text-red-500' />}
+							{notification.type === "like" && <FaHeart className='w-7 h-7 text-error' />}
 							<Link to={`/profile/${notification.from.username}`}>
 								<div className='avatar'>
 									<div className='w-8 rounded-full'>

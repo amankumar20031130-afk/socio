@@ -96,7 +96,7 @@ const ProfilePage = () => {
 
 	return (
 		<>
-			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
+			<div className='flex-[4_4_0]  border-r border-base-300 min-h-screen '>
 				{/* HEADER */}
 				{(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
 				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
@@ -109,7 +109,7 @@ const ProfilePage = () => {
 								</Link>
 								<div className='flex flex-col'>
 									<p className='font-bold text-lg'>{user?.fullName}</p>
-									<span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
+									<span className='text-sm text-base-content/60'>{POSTS?.length} posts</span>
 								</div>
 							</div>
 							{/* COVER IMG */}
@@ -121,10 +121,10 @@ const ProfilePage = () => {
 								/>
 								{isMyProfile && (
 									<div
-										className='absolute top-2 right-2 rounded-full p-2 bg-gray-800 bg-opacity-75 cursor-pointer opacity-0 group-hover/cover:opacity-100 transition duration-200'
+										className='absolute top-2 right-2 rounded-full p-2 bg-base-200 bg-opacity-75 cursor-pointer opacity-0 group-hover/cover:opacity-100 transition duration-200'
 										onClick={() => coverImgRef.current.click()}
 									>
-										<MdEdit className='w-5 h-5 text-white' />
+										<MdEdit className='w-5 h-5 text-base-content' />
 									</div>
 								)}
 
@@ -149,7 +149,7 @@ const ProfilePage = () => {
 										<div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
 											{isMyProfile && (
 												<MdEdit
-													className='w-4 h-4 text-white'
+													className='w-4 h-4 text-primary-content'
 													onClick={() => profileImgRef.current.click()}
 												/>
 											)}
@@ -169,6 +169,13 @@ const ProfilePage = () => {
 										{!isPending && !amIFollowing && "Follow"}
 									</button>
 								)}
+                                {!isMyProfile && (
+                                    <Link to={`/chat`} state={{ selectedUser: user }}>
+                                        <button className='btn btn-primary rounded-full btn-sm text-white ml-2'>
+                                            Message
+                                        </button>
+                                    </Link>
+                                )}
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
@@ -186,7 +193,7 @@ const ProfilePage = () => {
 							<div className='flex flex-col gap-4 mt-14 px-4'>
 								<div className='flex flex-col'>
 									<span className='font-bold text-lg'>{user?.fullName}</span>
-									<span className='text-sm text-slate-500'>@{user?.username}</span>
+									<span className='text-sm text-base-content/60'>@{user?.username}</span>
 									<span className='text-sm my-1'>{user?.bio}</span>
 								</div>
 
@@ -194,12 +201,12 @@ const ProfilePage = () => {
 									{user?.link && (
 										<div className='flex gap-1 items-center '>
 											<>
-												<FaLink className='w-3 h-3 text-slate-500' />
+												<FaLink className='w-3 h-3 text-base-content/60' />
 												<a
 													href='https://youtube.com/@asaprogrammer_'
 													target='_blank'
 													rel='noreferrer'
-													className='text-sm text-blue-500 hover:underline'
+													className='text-sm text-info hover:underline'
 												>
 													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
 													{user?.link}
@@ -208,22 +215,22 @@ const ProfilePage = () => {
 										</div>
 									)}
 									<div className='flex gap-2 items-center'>
-										<IoCalendarOutline className='w-4 h-4 text-slate-500' />
-										<span className='text-sm text-slate-500'>{memberSinceDate}</span>
+										<IoCalendarOutline className='w-4 h-4 text-base-content/60' />
+										<span className='text-sm text-base-content/60'>{memberSinceDate}</span>
 									</div>
 								</div>
 								<div className='flex gap-2'>
 									<div className='flex gap-1 items-center'>
 										<span className='font-bold text-xs'>{user?.following.length}</span>
-										<span className='text-slate-500 text-xs'>Following</span>
+										<span className='text-base-content/60 text-xs'>Following</span>
 									</div>
 									<div className='flex gap-1 items-center'>
 										<span className='font-bold text-xs'>{user?.followers.length}</span>
-										<span className='text-slate-500 text-xs'>Followers</span>
+										<span className='text-base-content/60 text-xs'>Followers</span>
 									</div>
 								</div>
 							</div>
-							<div className='flex w-full border-b border-gray-700 mt-4'>
+							<div className='flex w-full border-b border-base-300 mt-4'>
 								<div
 									className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 relative cursor-pointer'
 									onClick={() => setFeedType("posts")}
@@ -234,7 +241,7 @@ const ProfilePage = () => {
 									)}
 								</div>
 								<div
-									className='flex justify-center flex-1 p-3 text-slate-500 hover:bg-secondary transition duration-300 relative cursor-pointer'
+									className='flex justify-center flex-1 p-3 text-base-content/60 hover:bg-secondary transition duration-300 relative cursor-pointer'
 									onClick={() => setFeedType("likes")}
 								>
 									Likes
