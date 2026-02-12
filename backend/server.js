@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true })); // to parse form data(urlencode
 app.use(cors({
     origin: [
         "http://localhost:3000",
-        "https://socio-app-kappa.vercel.app"
+        "https://socio-sepia-delta.vercel.app"
     ],
     credentials: true,
 }));
