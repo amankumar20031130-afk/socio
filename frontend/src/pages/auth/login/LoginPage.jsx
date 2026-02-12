@@ -26,13 +26,22 @@ const LoginPage = () => {
 					body: JSON.stringify({ username, password }),
 				});
 
-				const data = await res.json();
-
-				if(!res.ok){
-					throw new Error(data.error || "Something went wrong");
+				let data;
+				const text = await res.text();
+				try {
+					data = JSON.parse(text);
+				} catch (e) {
+					console.error("Failed to parse JSON response:", text);
+					throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
 				}
+
+				if(!res.ok) throw new Error(data.error || "Something went wrong");
+			
+				console.log(data);
+				return data;
 			} catch (error) {
-				throw new Error(error);
+				console.error(error)
+				throw error;
 			}
 		},
 		onSuccess: () => {

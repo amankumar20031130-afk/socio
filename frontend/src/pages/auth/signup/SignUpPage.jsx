@@ -29,7 +29,15 @@ const SignUpPage = () => {
 					body: JSON.stringify({email,username,fullName,password}),
 				});
 
-				const data = await res.json();
+				let data;
+				const text = await res.text();
+				try {
+					data = JSON.parse(text);
+				} catch (e) {
+					console.error("Failed to parse JSON response:", text);
+					throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}...`);
+				}
+
 				if(!res.ok) throw new Error(data.error || "Failed to create account");
 			
 				console.log(data);

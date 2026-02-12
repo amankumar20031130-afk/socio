@@ -29,7 +29,7 @@ app.use(express.json({ limit: "5mb" })); // to parse the request body
 app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
 
 app.use(cors({
-    origin: ["http://localhost:3000", "https://socio-cxuo.onrender.com", /\.vercel\.app$/],
+    origin: ["http://localhost:3000", "https://socio-cxuo.onrender.com", "https://socio-app-kappa.vercel.app", /\.vercel\.app$/],
     credentials: true,
 }));
 
@@ -42,10 +42,22 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "frontend/dist")))
+    // Try to find the built frontend in multiple possible locations
+    const distPath = path.resolve(__dirname, "..", "dist");
+    const frontendDistPath = path.resolve(__dirname, "..", "frontend", "dist");
+
+    if (path.join(__dirname, "frontend/dist")) {
+        app.use(express.static(path.join(__dirname, "frontend/dist")))
+    } else {
+        app.use(express.static(distPath))
+    }
 
     app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+        // Prefer root dist if it exists, fallback to frontend/dist
+        const indexPath = path.resolve(__dirname, "frontend", "dist", "index.html");
+        const rootIndexPath = path.resolve(__dirname, "..", "dist", "index.html");
+
+        res.sendFile(rootIndexPath);
     })
 }
 
