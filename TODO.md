@@ -1,3 +1,0 @@
-- [x] Edit frontend/vite.config.js to add @tailwindcss/vite plugin
-- [x] Edit frontend/src/index.css to add @import "tailwindcss";
-- [x] Test the setup by running the dev server
