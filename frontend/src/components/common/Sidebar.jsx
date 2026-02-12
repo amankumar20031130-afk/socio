@@ -8,33 +8,34 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { TiMessages } from "react-icons/ti";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
 
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
-			try {
-				const res = await fetch("https://socio-cxuo.onrender.com/api/auth/logout", {
-					credentials: "include",
-					method: "POST",
-				});
-				const data = await res.json();
+			const res = await fetch("https://socio-cxuo.onrender.com/api/auth/logout", {
+				method: "POST",
+				credentials: "include",
+			});
 
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
-			} catch (error) {
-				throw new Error(error);
+			const data = await res.json();
+
+			if (!res.ok) {
+				throw new Error(data.error || "Something went wrong");
 			}
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["authUser"] });
+			queryClient.setQueryData(["authUser"], null); // ⭐ update UI instantly
+			toast.success("Logged out");
 		},
 		onError: () => {
 			toast.error("Logout failed");
 		},
 	});
+
 
 	const { data: authUser } = useAuth();
 
