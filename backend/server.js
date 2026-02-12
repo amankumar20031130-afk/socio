@@ -44,7 +44,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    connectMongoDB();
-});
+// Only listen if not running as a Vercel function
+if (!process.env.VERCEL) {
+    server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        connectMongoDB();
+    });
+}
+
+export default app;
