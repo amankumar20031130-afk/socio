@@ -13,7 +13,7 @@ export const SocketContextProvider = ({ children, authUser }) => {
 
 	useEffect(() => {
 		if (authUser) {
-			const socket = io(import.meta.env.MODE === "development" ? "http://localhost:5000" : "/", {
+			const socket = io(import.meta.env.MODE === "development" ? "http://localhost:5000" : "https://socio-cxuo.onrender.com", {
 				query: {
 					userId: authUser._id,
 				},
