@@ -54,15 +54,18 @@ const ProfilePage = () => {
 	});
 
 	const {
-		data: user,
-		isLoading,
-		refetch,
-		isRefetching,
-	} = useQuery({
-		queryKey: ["userProfile"],
-		queryFn: async () => {
+	data: user,
+	isLoading,
+	refetch,
+	isRefetching,
+} = useQuery({
+	queryKey: ["userProfile", username],
+	enabled: !!authUser,   // ⭐ WAIT until authUser exists
+	queryFn: async () => {
 			try {
-				const res = await fetch(`https://socio-cxuo.onrender.com/api/users/profile/${username}`);
+				const res = await fetch(`https://socio-cxuo.onrender.com/api/users/profile/${username}`,{
+					credentials: "include",
+				});
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -76,7 +79,8 @@ const ProfilePage = () => {
 
 	const { isUpdatingProfile, updateProfile } = useUpdateUserProfile();
 
-	const isMyProfile = authUser._id === user?._id;
+	const isMyProfile = authUser?._id === user?._id;
+
 	const memberSinceDate = formatMemberSinceDate(user?.createdAt);
 	const amIFollowing = authUser?.following.includes(user?._id);
 
