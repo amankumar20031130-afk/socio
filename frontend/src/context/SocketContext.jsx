@@ -13,7 +13,7 @@ export const SocketContextProvider = ({ children, authUser }) => {
 
 	useEffect(() => {
 		if (authUser) {
-			const socket = io("http://localhost:5000", {
+			const socket = io(import.meta.env.MODE === "development" ? "http://localhost:5000" : "/", {
 				query: {
 					userId: authUser._id,
 				},
