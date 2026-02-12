@@ -5,22 +5,17 @@ const useAuth = () => {
 		queryKey: ['authUser'],
 		queryFn: async () => {
 			try {
-				const res = await fetch("/api/auth/me");
-				let data;
-				const text = await res.text();
-				try {
-					data = JSON.parse(text);
-				} catch (e) {
-					// If it's the home page (HTML), return null (not logged in)
-					if (text.includes("<!DOCTYPE html>")) return null;
-					console.error("Failed to parse JSON response:", text);
-					return null;
-				}
+				const res = await fetch(
+					"https://socio-cxuo.onrender.com/api/auth/me",
+					{
+						credentials: "include", // ⭐ important
+					}
+				);
 
-				if (data.error) return null;
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
+				const data = await res.json();
+
+				if (!res.ok || data.error) return null;
+
 				return data;
 			} catch (error) {
 				console.error("Auth check failed:", error);

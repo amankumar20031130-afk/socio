@@ -18,13 +18,17 @@ const LoginPage = () => {
 	const {mutate:loginMutation,isPending,isError,error}= useMutation({
 		mutationFn: async ({username,password}) => {
 			try {
-				const res = await fetch("https://socio-cxuo.onrender.com/api/auth/login",{
-					method: "POST",
-					headers: {
+				const res = await fetch("https://socio-cxuo.onrender.com/api/auth/login",
+					{
+						method: "POST",
+						headers: {
 						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ username, password }),
-				});
+						},
+						credentials: "include", // ⭐ MUST HAVE
+						body: JSON.stringify({ username, password }),
+					});
+
+
 
 				let data;
 				const text = await res.text();
