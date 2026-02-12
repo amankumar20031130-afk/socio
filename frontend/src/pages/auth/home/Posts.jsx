@@ -5,18 +5,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from "react";
 
 const Posts = ({ feedType, username, userId }) => {
+	const API_BASE = "https://socio-cxuo.onrender.com";
+
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "/api/posts/all";
+				return `${API_BASE}/api/posts/all`;
 			case "following":
-				return "/api/posts/following";
+				return `${API_BASE}/api/posts/following`;
 			case "posts":
-				return `/api/posts/user/${username}`;
+				return `${API_BASE}/api/posts/user/${username}`;
 			case "likes":
-				return `/api/posts/likes/${userId}`;
+				return `${API_BASE}/api/posts/likes/${userId}`;
 			default:
-				return "/api/posts/all";
+				return `${API_BASE}/api/posts/all`;
 		}
 	};
 
@@ -31,7 +33,9 @@ const Posts = ({ feedType, username, userId }) => {
 		queryKey: ["posts"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(POST_ENDPOINT);
+				const res = await fetch(POST_ENDPOINT,{
+					credentials: "include",
+				});
 				const data = await res.json();
 
 				if (!res.ok) {

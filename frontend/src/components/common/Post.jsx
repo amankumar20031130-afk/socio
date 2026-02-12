@@ -25,7 +25,8 @@ const Post = ({ post }) => {
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/${post._id}`, {
+				const res = await fetch(`https://socio-cxuo.onrender.com/api/posts/${post._id}`, {
+					credentials: "include",
 					method: "DELETE",
 				});
 				const data = await res.json();
@@ -47,7 +48,8 @@ const Post = ({ post }) => {
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/like/${post._id}`, {
+				const res = await fetch(`https://socio-cxuo.onrender.com/api/posts/like/${post._id}`, {
+					credentials: "include",
 					method: "POST",
 				});
 				const data = await res.json();
@@ -82,6 +84,7 @@ const Post = ({ post }) => {
 		mutationFn: async () => {
 			try {
 				const res = await fetch(`/api/posts/comment/${post._id}`, {
+					credentials: "include",
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

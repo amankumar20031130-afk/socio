@@ -8,7 +8,8 @@ const useFollow = ()=>{
     const { mutate: follow, isPending }  = useMutation({
         mutationFn: async(userId) =>{
             try {
-                const res = await fetch(`/api/users/follow/${userId}`,{
+                const res = await fetch(`https://socio-cxuo.onrender.com/api/users/follow/${userId}`,{
+                    credentials: "include",
                     method: "POST",
                 })
                 const data = await res.json();

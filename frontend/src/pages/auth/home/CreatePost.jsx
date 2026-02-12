@@ -17,13 +17,15 @@ const CreatePost = () => {
 	const {mutate:CreatePost,isPending, isError, error} = useMutation({
 		mutationFn: async ({text, img})=>{
 			try {
-				const res = await fetch("/api/posts/create", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({text,img}),
-				})
+				const res = await fetch("https://socio-cxuo.onrender.com/api/posts/create",{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include", // ⭐ VERY IMPORTANT
+						body: JSON.stringify({ text, img }),
+					});
+
 				const data = await res.json();
 				if(!res.ok){
 					throw new Error(data.error || "Something went wrong")

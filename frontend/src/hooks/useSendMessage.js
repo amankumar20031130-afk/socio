@@ -7,7 +7,8 @@ const useSendMessage = () => {
     const { mutate: sendMessage, isPending: isSending } = useMutation({
         mutationFn: async ({ message, receiverId }) => {
             try {
-                const res = await fetch(`/api/messages/send/${receiverId}`, {
+                const res = await fetch(`https://socio-cxuo.onrender.com/api/messages/send/${receiverId}`, {
+                    credentials: "include",
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

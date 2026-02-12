@@ -15,7 +15,8 @@ const Sidebar = () => {
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("/api/auth/logout", {
+				const res = await fetch("https://socio-cxuo.onrender.com/api/auth/logout", {
+					credentials: "include",
 					method: "POST",
 				});
 				const data = await res.json();
